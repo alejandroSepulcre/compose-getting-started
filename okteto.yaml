@@ -1,0 +1,11 @@
+name: compose-getting-started
+
+build: 
+  vote:
+    context: vote
+
+deploy:
+  - name: Helm Install
+    command: helm upgrade --install vote chart --set image.repository=${OKTETO_BUILD_VOTE_IMAGE}
+  - name: Install redis chart
+    command: helm upgrade --install redis-vote oci://registry-1.docker.io/bitnamicharts/redis --set architecture=standalone --set auth.enabled=false

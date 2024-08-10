@@ -1,0 +1,331 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "title": "Root Schema",
+    "required": [
+        "replicaCount",
+        "image",
+        "imagePullSecrets",
+        "nameOverride",
+        "fullnameOverride",
+        "service",
+        "env",
+        "ingress",
+        "podAnnotations",
+        "podSecurityContext",
+        "securityContext",
+        "resources",
+        "nodeSelector",
+        "tolerations",
+        "affinity"
+    ],
+    "properties": {
+        "replicaCount": {
+            "type": "integer",
+            "default": 0,
+            "title": "The replicaCount Schema",
+            "examples": [
+                1
+            ]
+        },
+        "image": {
+            "type": "object",
+            "default": {},
+            "title": "The image Schema",
+            "required": [
+                "repository",
+                "pullPolicy"
+            ],
+            "properties": {
+                "repository": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The repository Schema",
+                    "examples": [
+                        "vote"
+                    ]
+                },
+                "pullPolicy": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The pullPolicy Schema",
+                    "pattern": "^(Always|Never|IfNotPresent)$",
+                    "examples": [
+                        "IfNotPresent"
+                    ]
+                }
+            },
+            "examples": [{
+                "repository": "vote",
+                "pullPolicy": "IfNotPresent"
+            }]
+        },
+        "imagePullSecrets": {
+            "type": "array",
+            "default": [],
+            "title": "The imagePullSecrets Schema",
+            "items": {},
+            "examples": [
+                []
+            ]
+        },
+        "nameOverride": {
+            "type": "string",
+            "default": "",
+            "title": "The nameOverride Schema",
+            "examples": [
+                ""
+            ]
+        },
+        "fullnameOverride": {
+            "type": "string",
+            "default": "",
+            "title": "The fullnameOverride Schema",
+            "examples": [
+                ""
+            ]
+        },
+        "service": {
+            "type": "object",
+            "default": {},
+            "title": "The service Schema",
+            "required": [
+                "port",
+                "type"
+            ],
+            "properties": {
+                "port": {
+                    "type": "integer",
+                    "default": 0,
+                    "title": "The port Schema",
+                    "examples": [
+                        8080
+                    ]
+                },
+                "type": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The type Schema",
+                    "examples": [
+                        "ClusterIP"
+                    ]
+                }
+            },
+            "examples": [{
+                "port": 8080,
+                "type": "ClusterIP"
+            }]
+        },
+        "env": {
+            "type": "object",
+            "default": {},
+            "title": "The env Schema",
+            "required": [
+                "LOG_LEVEL",
+                "REDIS_HOST"
+            ],
+            "properties": {
+                "LOG_LEVEL": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The LOG_LEVEL Schema",
+                    "examples": [
+                        "development"
+                    ]
+                },
+                "REDIS_HOST": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The REDIS_HOST Schema",
+                    "examples": [
+                        "redis-vote-master"
+                    ]
+                }
+            },
+            "examples": [{
+                "LOG_LEVEL": "development",
+                "REDIS_HOST": "redis-vote-master"
+            }]
+        },
+        "ingress": {
+            "type": "object",
+            "default": {},
+            "title": "The ingress Schema",
+            "required": [
+                "enabled",
+                "annotations",
+                "hosts"
+            ],
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "The enabled Schema",
+                    "examples": [
+                        true
+                    ]
+                },
+                "annotations": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The annotations Schema",
+                    "required": [
+                        "dev.okteto.com/generate-host"
+                    ],
+                    "properties": {
+                        "dev.okteto.com/generate-host": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The dev.okteto.com/generate-host Schema",
+                            "examples": [
+                                "true"
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "dev.okteto.com/generate-host": "true"
+                    }]
+                },
+                "hosts": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The hosts Schema",
+                    "items": {
+                        "type": "object",
+                        "default": {},
+                        "title": "A Schema",
+                        "required": [
+                            "paths"
+                        ],
+                        "properties": {
+                            "paths": {
+                                "type": "array",
+                                "default": [],
+                                "title": "The paths Schema",
+                                "items": {
+                                    "type": "object",
+                                    "default": {},
+                                    "title": "A Schema",
+                                    "required": [
+                                        "path",
+                                        "pathType"
+                                    ],
+                                    "properties": {
+                                        "path": {
+                                            "type": "string",
+                                            "default": "",
+                                            "title": "The path Schema",
+                                            "examples": [
+                                                "/"
+                                            ]
+                                        },
+                                        "pathType": {
+                                            "type": "string",
+                                            "default": "",
+                                            "title": "The pathType Schema",
+                                            "examples": [
+                                                "Prefix"
+                                            ]
+                                        }
+                                    },
+                                    "examples": [{
+                                        "path": "/",
+                                        "pathType": "Prefix"
+                                    }]
+                                },
+                                "examples": [
+                                    [{
+                                        "path": "/",
+                                        "pathType": "Prefix"
+                                    }]
+                                ]
+                            }
+                        },
+                        "examples": [{
+                            "paths": [{
+                                "path": "/",
+                                "pathType": "Prefix"
+                            }]
+                        }]
+                    },
+                    "examples": [
+                        [{
+                            "paths": [{
+                                "path": "/",
+                                "pathType": "Prefix"
+                            }]
+                        }]
+                    ]
+                }
+            },
+            "examples": [{
+                "enabled": true,
+                "annotations": {
+                    "dev.okteto.com/generate-host": "true"
+                },
+                "hosts": [{
+                    "paths": [{
+                        "path": "/",
+                        "pathType": "Prefix"
+                    }]
+                }]
+            }]
+        },
+        "podAnnotations": {
+            "type": "object",
+            "default": {},
+            "title": "The podAnnotations Schema",
+            "required": [],
+            "properties": {},
+            "examples": [{}]
+        },
+        "podSecurityContext": {
+            "type": "object",
+            "default": {},
+            "title": "The podSecurityContext Schema",
+            "required": [],
+            "properties": {},
+            "examples": [{}]
+        },
+        "securityContext": {
+            "type": "object",
+            "default": {},
+            "title": "The securityContext Schema",
+            "required": [],
+            "properties": {},
+            "examples": [{}]
+        },
+        "resources": {
+            "type": "object",
+            "default": {},
+            "title": "The resources Schema",
+            "required": [],
+            "properties": {},
+            "examples": [{}]
+        },
+        "nodeSelector": {
+            "type": "object",
+            "default": {},
+            "title": "The nodeSelector Schema",
+            "required": [],
+            "properties": {},
+            "examples": [{}]
+        },
+        "tolerations": {
+            "type": "array",
+            "default": [],
+            "title": "The tolerations Schema",
+            "items": {},
+            "examples": [
+                []
+            ]
+        },
+        "affinity": {
+            "type": "object",
+            "default": {},
+            "title": "The affinity Schema",
+            "required": [],
+            "properties": {},
+            "examples": [{}]
+        }
+    }
+}
