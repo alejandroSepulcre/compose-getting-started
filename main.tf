@@ -1,0 +1,28 @@
+resource "helm_release" "vote" {
+  name      = "vote"
+  chart     = "chart"
+  namespace = "okteto-admin"
+  values = [
+    "${file("chart/values.yaml")}"
+  ]
+  set {
+    name  = "image.repository"
+    value = var.OKTETO_BUILD_VOTE_IMAGE
+  }
+
+}
+
+resource "helm_release" "redis" {
+  name      = "redis-vote"
+  chart     = "bitnami/redis"
+  namespace = "okteto-admin"
+
+  set {
+    name  = "architecture"
+    value = "standalone"
+  }
+  set {
+    name  = "auth.enabled"
+    value = "false"
+  }
+}
