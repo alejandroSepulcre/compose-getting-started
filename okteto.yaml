@@ -7,12 +7,9 @@ build:
 deploy:
   image: okteto/tfenv-ci:1.4
   commands:
-    - helm repo add bitnami https://charts.bitnami.com/bitnami; terraform init -backend-config="config_path=${KUBECONFIG}" -reconfigure; export TF_VAR_OKTETO_BUILD_VOTE_IMAGE=${OKTETO_BUILD_VOTE_IMAGE} TF_VAR_KUBECONFIG=$KUBECONFIG; terraform apply --auto-approve; terraform test
-#  - name: Helm Install
-#    command: helm upgrade --install vote chart --set image.repository=${OKTETO_BUILD_VOTE_IMAGE}
-#  - name: Install redis chart
-#    command: helm upgrade --install redis-vote oci://registry-1.docker.io/bitnamicharts/redis --set architecture=standalone --set auth.enabled=false
+    - helm repo add bitnami https://charts.bitnami.com/bitnami; terraform init -backend-config="config_path=${KUBECONFIG}" -backend-config="namespace=$OKTETO_NAMESPACE" -reconfigure; export TF_VAR_OKTETO_BUILD_VOTE_IMAGE=${OKTETO_BUILD_VOTE_IMAGE} TF_VAR_KUBECONFIG=$KUBECONFIG ; terraform apply --auto-approve; terraform test
+
 destroy:
   image: okteto/tfenv-ci:1.4
   commands:
-    - terraform init -backend-config="config_path=${KUBECONFIG}" -reconfigure; export TF_VAR_KUBECONFIG=$KUBECONFIG; terraform destroy --auto-approve
+    - terraform init -backend-config="config_path=${KUBECONFIG}" -backend-config="namespace=$OKTETO_NAMESPACE" -reconfigure; export TF_VAR_KUBECONFIG=$KUBECONFIG; terraform destroy --auto-approve

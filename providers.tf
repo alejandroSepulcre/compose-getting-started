@@ -10,7 +10,6 @@ terraform {
 
   backend "kubernetes" {
     secret_suffix = "tfstate"
-    namespace     = "okteto-admin"
   }
 }
 
