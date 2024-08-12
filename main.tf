@@ -1,7 +1,7 @@
 resource "helm_release" "vote" {
   name      = "vote"
   chart     = "chart"
-  namespace = "okteto-admin"
+  namespace = var.OKTETO_NAMESPACE
   values = [
     "${file("chart/values.yaml")}"
   ]
@@ -15,7 +15,7 @@ resource "helm_release" "vote" {
 resource "helm_release" "redis" {
   name      = "redis-vote"
   chart     = "bitnami/redis"
-  namespace = "okteto-admin"
+  namespace = var.OKTETO_NAMESPACE
 
   set {
     name  = "architecture"

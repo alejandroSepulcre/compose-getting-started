@@ -29,6 +29,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_KUBECONFIG"></a> [KUBECONFIG](#input\_KUBECONFIG) | n/a | `string` | `""` | no |
 | <a name="input_OKTETO_BUILD_VOTE_IMAGE"></a> [OKTETO\_BUILD\_VOTE\_IMAGE](#input\_OKTETO\_BUILD\_VOTE\_IMAGE) | n/a | `string` | `""` | no |
+| <a name="input_OKTETO_NAMESPACE"></a> [OKTETO\_NAMESPACE](#input\_OKTETO\_NAMESPACE) | n/a | `string` | `""` | no |
 
 ## Outputs
 

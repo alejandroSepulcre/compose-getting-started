@@ -7,7 +7,7 @@ build:
 deploy:
   image: okteto/tfenv-ci:1.4
   commands:
-    - helm repo add bitnami https://charts.bitnami.com/bitnami; terraform init -backend-config="config_path=${KUBECONFIG}" -backend-config="namespace=$OKTETO_NAMESPACE" -reconfigure; export TF_VAR_OKTETO_BUILD_VOTE_IMAGE=${OKTETO_BUILD_VOTE_IMAGE} TF_VAR_KUBECONFIG=$KUBECONFIG ; terraform apply --auto-approve; terraform test
+    - helm repo add bitnami https://charts.bitnami.com/bitnami; terraform init -backend-config="config_path=${KUBECONFIG}" -backend-config="namespace=$OKTETO_NAMESPACE" -reconfigure; export TF_VAR_OKTETO_BUILD_VOTE_IMAGE=${OKTETO_BUILD_VOTE_IMAGE} TF_VAR_KUBECONFIG=$KUBECONFIG TF_VAR_OKTETO_NAMESPACE=$OKTETO_NAMESPACE; terraform apply --auto-approve; terraform test
 
 destroy:
   image: okteto/tfenv-ci:1.4

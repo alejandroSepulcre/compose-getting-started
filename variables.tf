@@ -7,3 +7,8 @@ variable "KUBECONFIG" {
   type    = string
   default = ""
 }
+
+variable "OKTETO_NAMESPACE" {
+  type    = string
+  default = ""
+}
